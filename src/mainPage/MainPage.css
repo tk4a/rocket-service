@@ -1,0 +1,133 @@
+.mainPage {
+    min-height: 100vh;
+}
+
+.mainPageWelocomeSection {
+    position: relative;
+    padding: 5rem 0;
+    background: linear-gradient(to bottom right, #1a202c, #2d3748);
+    color: white;
+    text-align: center;
+}
+
+.mainPageWelocomeContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.mainPageWelocomeTitle {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.mainPageWelocomeSubtitle {
+    font-size: 1.25rem;
+    color: #cbd5e0;
+    margin-bottom: 2rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mainPageWelocomeButtons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.mainPageWelocomeButton {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.mainPageLoginButton {
+    background-color: #2563eb;
+    color: white;
+}
+
+.mainPageResumeButton {
+    background-color: #4b5563;
+    color: white;
+}
+
+.mainPageFeaturesSection {
+    padding: 5rem 0;
+}
+
+.mainPageFeaturesTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+.featureCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.featureIcon {
+    color: #2563eb;
+    margin-bottom: 1rem;
+}
+
+.featureTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.featureDescription {
+    color: #6b7280;
+}
+
+.linkToResume {
+    padding: 5rem 0;
+    background-color: #f3f4f6;
+}
+
+.linkToResumeContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.linkToResumeTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.linkToResumeSubtitle {
+    font-size: 1.25rem;
+    color: #cbd5e0;
+    margin-bottom: 2rem;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.linkToResumeButton {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
