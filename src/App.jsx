@@ -11,6 +11,7 @@ import SuccessLogin from "./loginPage/SuccessLogin";
 import ErrorSignUp from "./loginPage/ErrorSignUp";
 import ErrorLogin from "./loginPage/ErrorLogin";
 import ErrorPageCommon from "./loginPage/ErrorPageCommon";
+import UserResumePage from "./resumePage/UserResumePage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,6 +30,7 @@ function App() {
               <Route path="/login" element={<Navigate to="/" />} />
             )}
             <Route path="/resume" element={<ResumePage />} />
+            <Route path="/fill-resume" element={<UserResumePage />} />
             <Route path="/success-sign-up" element={<SuccessSignUp />} />
             <Route path="/success-login" element={<SuccessLogin />} />
             <Route path="/error-sign-up" element={<ErrorSignUp />} />

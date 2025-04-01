@@ -1,0 +1,320 @@
+.resumePage {
+  min-height: 100vh;
+}
+
+.resumeHeader {
+  position: relative;
+  padding: 5rem 0;
+  background: linear-gradient(to bottom right, #1a202c, #2d3748);
+  color: white;
+  text-align: center;
+}
+
+.resumeImageWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.resumeImage {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+}
+
+.resumeContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.resumeTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.editNameIcon {
+  cursor: pointer;
+  margin-left: 8px;
+  vertical-align: middle;
+  display: inline-block;
+  z-index: 10;
+  position: relative;
+}
+
+.editPositionIcon {
+  cursor: pointer;
+  margin-left: 8px;
+  vertical-align: middle;
+  display: inline-block;
+  z-index: 10;
+  position: relative;
+}
+
+.centeredNameContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Это заставит контейнер растягиваться по всей высоте экрана */
+  margin-top: 20px; /* Отступ сверху */
+  margin-bottom: 20px;
+}
+
+.editNameContainer {
+  display: flex;
+  justify-content: flex-start; /* Элементы будут выравниваться по началу */
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px; /* Ограничиваем ширину формы */
+  margin: 0; /* Убираем маргины */
+  padding: 0; /* Убираем паддинги */
+}
+
+.editNameContainer input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 48%; /* Даем каждому полю 48% ширины контейнера */
+}
+
+.editNameContainer input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.editNameContainer button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editNameContainer button:hover {
+  background-color: #0056b3;
+}
+
+.resumeSubtitle {
+  font-size: 1.25rem;
+  color: #cbd5e0;
+  margin-bottom: 2rem;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.editPositionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Отступ между инпутом и кнопкой */
+  width: 100%;
+}
+
+.editPositionInput {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 200px;
+}
+
+.editPositionInput:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.savePositionButton {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.savePositionButton:hover {
+  background-color: #0056b3;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.navLink {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.skills {
+  padding: 5rem 0;
+}
+
+.sskillsTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.skillCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.skill-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.skillIcon {
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.skillTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.skillList {
+  list-style: none;
+}
+
+.expirience {
+  padding: 5rem 0;
+  background-color: #f3f4f6;
+}
+
+.sexpirienceTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.expirienceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.expirianceCard {
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.expirianceImage {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+}
+
+.expirianceContent {
+  padding: 1.5rem;
+}
+
+.expirianceTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.expirianceDescription {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.expirianceLink {
+  color: #2563eb;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.contact {
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.contactTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.contactSubtitle {
+  font-size: 1.25rem;
+  color: #cbd5e0;
+  margin-bottom: 2rem;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.contactButton:hover {
+  background-color: #1d4ed8;
+}
+
+.mailIcon {
+  margin-right: 0.5rem;
+}
+
+.footer {
+  background-color: #1a202c;
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

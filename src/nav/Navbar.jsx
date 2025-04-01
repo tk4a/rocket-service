@@ -24,6 +24,9 @@ function Navbar() {
           <Link to="/resume" className="toResumePage">
             Resume
           </Link>
+          <Link to="/fill-resume" className="toFillResume">
+            Fill-Resume
+          </Link>
         </div>
       </div>
     </nav>
