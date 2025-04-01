@@ -111,6 +111,8 @@
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .editPositionContainer {
@@ -155,12 +157,67 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
+  z-index: 1;
+  flex-wrap: wrap; /* Чтобы элементы не слипались при узком экране */
+}
+
+.editLinkContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Отступ между инпутом и кнопкой */
+  width: 100%;
+  z-index: 10;
+}
+
+.editLinkInput {
+  padding: 5px;
+  font-size: 16px;
+  width: 200px;
+  margin-right: 10px;
+  z-index: 10;
+}
+
+.editLinkInput:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.editLinkIcon {
+  cursor: pointer;
+  margin-left: 8px;
+  vertical-align: middle;
+  display: inline-block;
+  z-index: 10;
+  position: relative;
+}
+
+.saveLinkButton {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: green;
+  z-index: 10;
 }
 
 .navLink {
   color: white;
   text-decoration: none;
   transition: color 0.2s;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  z-index: 10;
+}
+
+.navLink:hover {
+  opacity: 0.8; /* Эффект при наведении */
+}
+
+.navLink svg {
+  pointer-events: none; /* Убедитесь, что события не обрабатываются на самой иконке */
 }
 
 .skills {

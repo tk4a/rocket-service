@@ -1,44 +1,50 @@
 .navbar {
-    background-color: #1a202c;
-    color: white;
+  background-color: #1a202c;
+  color: white;
 }
 
 .navbarContent {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    height: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbarSiteLabel {
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
 }
 
 .navbarMenu {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .toWelcomePage {
-    color: white;
-    text-decoration: none;
-    transition: color 0.2s;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 .toLoginPagePage {
-    color: white;
-    text-decoration: none;
-    transition: color 0.2s;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 .toResumePage {
-    color: white;
-    text-decoration: none;
-    transition: color 0.2s;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toFillResume {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
 }

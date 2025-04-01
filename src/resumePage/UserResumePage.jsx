@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {
   Github,
@@ -12,27 +12,32 @@ import {
 } from "lucide-react";
 import "./UserResumePage.css";
 
+{
+  /* Page with real data from server and posobilities to edit profile */
+}
 function UserResumePage() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingPosition, setIsEditingPosition] = useState(false);
-  const [firstName, setFirstName] = useState("FirstName");
-  const [lastName, setLastName] = useState("LastName");
-  const [position, setPosition] = useState("Developer");
+  const [isEditingLinks, setIsEditingLinks] = useState(false);
+
+  const defaultLinks = [
+    { type: "GitHub", value: "http://github.com" },
+    { type: "LinkedIn", value: "http://linkedin.com" },
+    { type: "Mail", value: "contact@example.com" },
+  ];
+
+  const containerRef = useRef(null);
+  const saveButtonRef = useRef(null);
 
   const [formData, setFormData] = useState({
     firstName: "FirstName",
     lastName: "LastName",
     position: "Position",
     email: "contact@example.com",
-    github: "",
-    linkedin: "",
-    skills: ["React", "Java", "Kotlin", "SpringBoot"],
-    experience: [
-      {
-        title: "VTB mobile bank",
-        description: "Worked on mobile banking solutions.",
-      },
-      { title: "Open bank", description: "Built financial services backend." },
+    links: [
+      { type: "GitHub", value: "http://github.com" },
+      { type: "LinkedIn", value: "http://linkedin.com" },
+      { type: "Mail", value: "contact@example.com" },
     ],
   });
 
@@ -43,14 +48,12 @@ function UserResumePage() {
       })
       .then((response) => {
         const data = response.data;
-
-        console.log("RESPONSE: " + JSON.stringify(data, null, 2));
-
         setFormData({
           firstName: data.firstName || "FirstName",
           lastName: data.lastName || "LastName",
           email: data.email || "contact@example.com",
           position: data.position || "Developer",
+          links: data.links || defaultLinks,
         });
       })
       .catch((error) => {
@@ -62,6 +65,55 @@ function UserResumePage() {
       });
   }, []);
 
+  // Функция для отправки PUT-запроса
+  const handleSave = () => {
+    console.log("Form Data to be sent:", formData);
+    axios
+      .put(
+        `http://localhost:8081/resume/update/${formData.email}`, // Указываем email для обновления конкретного резюме
+        formData, // Отправляем все данные формы
+        {
+          headers: { Authorization: `Bearer TOKEN` },
+        }
+      )
+      .then((response) => {
+        console.log("Data saved:", response.data);
+        setIsEditingName(false); // Закрыть форму редактирования имени
+        setIsEditingLinks(false); // Закрыть форму редактирования ссылок
+      })
+      .catch((error) => {
+        console.error("Error while saving resume data:", error);
+      });
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Если клик внутри формы, ничего не делаем
+      if (
+        (containerRef.current && containerRef.current.contains(event.target)) ||
+        (saveButtonRef.current && saveButtonRef.current.contains(event.target))
+      ) {
+        return;
+      }
+      // // Закрываем форму, если клик был снаружи
+      if (isEditingName || isEditingPosition || isEditingLinks) {
+        handleSave();
+        setIsEditingName(false);
+        setIsEditingPosition(false);
+        setIsEditingLinks(false);
+      }
+    };
+
+    // Используем setTimeout, чтобы подождать завершения рендера
+    setTimeout(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+    }, 0);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [formData, isEditingName, isEditingPosition, isEditingLinks]);
+
   return (
     <div className="resumePage">
       <header className="resumeHeader">
@@ -72,33 +124,32 @@ function UserResumePage() {
           className="resumeImage"
           style={{ opacity: 0.1 }}
         />
+
         {/* FirstName and LastName */}
         {isEditingName ? (
           <div className="centeredNameContainer">
-            <div className="editNameContainer">
+            <div className="editNameContainer" ref={containerRef}>
               <input
                 type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={formData.firstName}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    firstName: e.target.value,
+                  }))
+                }
                 placeholder="First Name"
                 autoFocus
               />
               <input
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={formData.lastName}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, lastName: e.target.value }))
+                }
                 placeholder="Last Name"
-                autoFocus
-                onBlur={() => setIsEditingName(false)}
               />
-              <button
-                onClick={() => {
-                  setFormData((prev) => ({ ...prev, firstName, lastName }));
-                  setIsEditingName(false);
-                }}
-              >
-                Save
-              </button>
+              <button>Save</button>
             </div>
           </div>
         ) : (
@@ -114,13 +165,16 @@ function UserResumePage() {
             </h1>
           </div>
         )}
+
         {/* Position */}
         {isEditingPosition ? (
           <div className="resumeSubtitle editPositionContainer">
             <input
               type="text"
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
+              value={formData.position}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, position: e.target.value }))
+              }
               placeholder="Your position"
               autoFocus
               className="editPositionInput"
@@ -147,103 +201,78 @@ function UserResumePage() {
             </div>
           </div>
         )}
+
+        {/* Link section */}
+        <div className="buttonGroup">
+          {isEditingLinks ? (
+            // Режим редактирования (показываем инпуты)
+            <div className="editLinkContainer" ref={containerRef}>
+              {(formData.links ?? defaultLinks).map((link, index) => (
+                <div key={index}>
+                  <input
+                    type="text"
+                    value={link.value}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        links: (prev.links ?? defaultLinks).map((l, i) =>
+                          i === index ? { ...l, value: e.target.value } : l
+                        ),
+                      }))
+                    }
+                    className="editLinkInput"
+                  />
+                </div>
+              ))}
+              <button className="saveLinkButton" onClick={handleSave}>
+                ✔
+              </button>
+            </div>
+          ) : (
+            // Обычный режим (показываем ссылки)
+            <>
+              {formData.links && Array.isArray(formData.links) ? (
+                <>
+                  {formData.links?.map((link, index) => (
+                    <a
+                      key={index}
+                      href={
+                        link.type === "Mail"
+                          ? `mailto:${link.value}`
+                          : link.value
+                      }
+                      className="navLink"
+                    >
+                      {link.type === "GitHub" && <Github size={24} />}
+                      {link.type === "LinkedIn" && <Linkedin size={24} />}
+                      {link.type === "Mail" && <Mail size={24} />}
+                    </a>
+                  ))}
+                  {/* Один карандаш на все ссылки */}
+                  <div
+                    className="editLinkIcon"
+                    onClick={() => setIsEditingLinks(true)}
+                  >
+                    <Pencil size={16} />
+                  </div>
+                </>
+              ) : (
+                <div
+                  className="editLinkIcon"
+                  onClick={() => setIsEditingLinks(true)}
+                >
+                  <a href={`mailto:${formData.email}`} className="navLink">
+                    <Mail size={24} />
+                  </a>
+                  <Pencil size={16} />
+                </div> // Можно показать заглушку, если links пустой
+              )}
+            </>
+          )}
+        </div>
       </header>
     </div>
   );
-
-  // const [resume, setResume] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const token = localStorage.getItem("token");
-
-  // useEffect(() => {
-  //   if (!token) {
-  //     window.location.href = "/login";
-  //     return;
-  //   }
-  //   axios
-  //     .get("http://localhost:8080/resume", {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((response) => {
-  //       setResume(response.data);
-  //     })
-  //     .catch(() => {
-  //       console.error("Failed to fetch resume");
-  //     })
-  //     .finally(() => setLoading(false));
-  // }, [token]);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (!resume) return <p>No resume data found</p>;
-
-  // return (
-  //   <div className="resumePage">
-  //     <header className="resumeHeader">
-  //       <div className="resumeImageWrapper">
-  //         <img src={resume.image} alt="Profile" className="resumeImage" style={{ opacity: 0.1 }} />
-  //       </div>
-  //       <div className="resumeContent">
-  //         <h1 className="resumeTitle">{resume.name}</h1>
-  //         <p className="resumeSubtitle">{resume.position}</p>
-  //         <div className="buttonGroup">
-  //           <a href={resume.github} className="navLink">
-  //             <Github size={24} />
-  //           </a>
-  //           <a href={resume.linkedin} className="navLink">
-  //             <Linkedin size={24} />
-  //           </a>
-  //           <a href={`mailto:${resume.email}`} className="navLink">
-  //             <Mail size={24} />
-  //           </a>
-  //         </div>
-  //       </div>
-  //     </header>
-
-  //     <section className="skills">
-  //       <h2 className="skillsTitle">Technical Skills</h2>
-  //       <div className="skillsGrid">
-  //         {resume.skills.map((skill, index) => (
-  //           <SkillCard key={index} icon={<Code2 size={32} />} title={skill.category} skills={skill.items} />
-  //         ))}
-  //       </div>
-  //     </section>
-
-  //     <section className="experience">
-  //       <h2 className="experienceTitle">Experience</h2>
-  //       <div className="experienceGrid">
-  //         {resume.experience.map((exp, index) => (
-  //           <ExperienceCard key={index} title={exp.title} description={exp.description} image={exp.image} />
-  //         ))}
-  //       </div>
-  //     </section>
-  //   </div>
-  // );
 }
-
-// function SkillCard({ icon, title, skills }) {
-//   return (
-//     <div className="skillCard">
-//       <div className="skillIcon">{icon}</div>
-//       <h3 className="skillTitle">{title}</h3>
-//       <ul className="skillList">
-//         {skills.map((skill, index) => (
-//           <li key={index} className="skillItem">{skill}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-// function ExperienceCard({ title, description, image }) {
-//   return (
-//     <div className="experienceCard">
-//       <img src={image} alt={title} className="experienceImage" />
-//       <div className="experienceContent">
-//         <h3 className="experienceTitle">{title}</h3>
-//         <p className="experienceDescription">{description}</p>
-//       </div>
-//     </div>
-//   );
-// }
 
 export default UserResumePage;
