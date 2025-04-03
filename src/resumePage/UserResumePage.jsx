@@ -67,7 +67,6 @@ function UserResumePage() {
 
   // Функция для отправки PUT-запроса
   const handleSave = () => {
-    console.log("Form Data to be sent:", formData);
     axios
       .put(
         `http://localhost:8081/resume/update/${formData.email}`, // Указываем email для обновления конкретного резюме
