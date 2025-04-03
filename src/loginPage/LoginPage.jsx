@@ -13,11 +13,12 @@ function LoginPage() {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
+  const AUTH_API_URL =
+    "http://rocket-auth-service.default.svc.cluster.local:8080";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      alert("Код выполняется!");
       let response;
       if (email && password && username) {
         response = await axios.post(
@@ -41,9 +42,8 @@ function LoginPage() {
           return;
         }
       } else if (email && password) {
-        console.log("BEFORE");
         response = await axios.post(
-          "http://localhost:8080/login",
+          `${AUTH_API_URL}/login`,
           {
             email,
             password,
